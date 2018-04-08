@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Leaning vuejs</title>
+	<link rel="stylesheet" href="vendor/bootstrap.css">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="vendor/bootstrap.js"></script>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div id="tasks">
+			<div>
+				<img src="img/anhminh.jpg" alt="" height="100px">
+				<h1>Nhiệm vụ mới</h1>
+				<ol class = "list-group">
+					<li v-for="task in tasks" class = "list-group-item">
+						<span @click = "editTask (task)"> {{ task.body }} </span>
+						<button @click = "removeTask (task)"> &#10007; </button>
+					</li>
+				</ol>
+			</div>
+			<form @submit="addTask">
+				<div class="form-group">
+					<input v-el: newtask 
+					v-model="newTask" type="text" class = "form-control" placeholder = "Ten nhiem vu">
+				</div>
+				<button type = "submit" class= "btn btn-primary">Thêm nhiệm vụ</button>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		new Vue ({
+			el: '#tasks',
+			data:{
+			 tasks: [{body: "Thiết kế web", completed: false},
+			 {body: "Phát triển web", completed: true}],
+			 newTask: ''
+			},
+			methods: {
+				addTask: function (e) {
+					e.preventDefault();
+					this.tasks.push({
+						body: this.newTask,
+						completed: false
+					});
+					this.newTask = '';
+				},
+				removeTasks: function (task) {
+					this.tasks.$remove(task);
+				},
+				editTask: function (task) {
+					this.task.removeTasks(task);
+					this.newTask = task.body;
+					this.$els.newtask.focus();
+				}
+
+			}
+		});
+	</script>
+</body>
+</html>
